@@ -1,0 +1,20 @@
+{
+  "name": "ptdocss",
+  "version": "0.0.0",
+  "authors": [
+    "jacobdong <jacobdong@msn.com>"
+  ],
+  "license": "MIT",
+  "homepage": "views/login.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "angular": "~1.2.25"
+  }
+}

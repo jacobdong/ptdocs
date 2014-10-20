@@ -1,0 +1,87 @@
+<!Doctype html>
+<html ng-app="app">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="src/css/plugins/bootstrap/bootstrap.css">
+		<!--app css-->
+		<link rel="stylesheet" type="text/css" href="src/css/app/app.css">
+		<title>PtDoc</title>
+	</head>
+
+	<body>
+		<div id="home-img" >
+			<div class="container">
+				<div class="row">	
+					<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 login-form">
+						
+						<div class="row" ng-controller="loginCtrl">
+							<div class="col-md-4 col-md-offset-8 col-sm-12 col-xs-12" style="overflow:auto;padding-bottom:22px;border-radius:8px;box-shadow:0px 0px 10px #fefefe;">
+								<h1 class="col-md-12 col-sm-12 col-xs-12 text-center ">Pt Docs</h1>
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<input  type="text" class="form-control" placeHolder="username" ng-model="vm.userInfo.username"/>
+								</div>
+
+								<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">
+									<input  type="text" class="form-control" placeHolder="password" ng-model="vm.userInfo.password"/>
+								</div>
+
+								<div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">
+									<input type="button" class="form-control btn btn-primary" value="sign up" ng-click="vm.userLogin()" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+
+	<script type="text/javascript" src="src/js/plugins/angular/angular.js"></script>
+	<!--<script type="text/javascript" src="bower/angular-resource/angular-resource.js"></script>
+	<script type="text/javascript" src="bower/angular-ui-router/release/angular-ui-router.js"></script>-->
+
+	<!--app script-->
+	<!--<script type="text/javascript" src="src/js/app.js"></script>-->
+
+	<script type="text/javascript">
+
+		var app = angular.module("app",[]);
+
+		app.controller('loginCtrl', ['$scope','$http', function ($scope,$http) {
+			var vm = $scope.vm = {};
+			vm.userInfo = {
+				username:'',
+				password:''
+			}
+
+			//检查是否已经登录
+
+			$http({method:'GET',url:'/auth'})
+				.success(function(data,status){
+					console.log("authed");
+					window.location.href="/home";
+				})
+				.error(function(data,status){
+					console.log("unauth");
+				});
+
+			vm.userLogin = function(){
+				$http({method:'POST',url:'/login',data: vm.userInfo})
+					.success(function(data,status){
+						console.log("login success");
+						window.location.href="/home";
+					})
+					.error(function(data,status){
+						if(status === 404){
+							console.log("login faild");
+						}
+					});
+			};
+
+		}]);
+	</script>
+
+	
+</html>
+
