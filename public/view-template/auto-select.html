@@ -1,0 +1,25 @@
+<div ng-controller="sanboxCtrl">
+	<div class="row">
+	  <div class="col-md-4">
+	    <select class="form-control" ng-model="vm.country" ng-selected="vm.country.label == country.label" ng-options="country.label for country in vm.countries">
+	      <option value="">-- 请选择国家 --</option>
+	    </select>
+	  </div>
+	  <div class="col-md-4" ng-if="vm.country.provinces">
+	    <select class="form-control" ng-model="vm.province"
+	            ng-options="province.label for province in vm.country.provinces">
+	      <option value="">-- 请选择省份/州 --</option>
+	    </select>
+	  </div>
+	  <div class="col-md-4" ng-if="vm.province.cities">
+	    <select class="form-control" ng-model="vm.city" ng-options="city.label for city in vm.province.cities">
+	      <option value="">-- 请选择城市/县区 --</option>
+	    </select>
+	  </div>
+	</div>
+	<div>您选择的是：{{vm.country.label}} - {{vm.province.label}} - {{vm.city.label}}</div>
+	<div>您选择的是：{{vm.country}} - {{vm.province}} - {{vm.city}}</div>
+	<div class="alert alert-info">
+	  <button ng-click="vm.autoSelect()">自动选择</button>
+	</div>
+</div>
